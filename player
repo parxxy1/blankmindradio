@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Media Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .media-player {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .media-player button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .media-player button.play {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .media-player button.pause {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .media-player button.skip {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .media-player button.repeat {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .media-player input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="media-player">
+        <audio id="audio" src="your-audio-file.mp3"></audio>
+
+        <div class="controls">
+            <button class="play" id="play-button">Play</button>
+            <button class="pause" id="pause-button" style="display: none;">Pause</button>
+            <button class="skip" id="skip-button">Skip</button>
+            <button class="repeat" id="repeat-button">Repeat</button>
+        </div>
+
+        <div class="progress-container">
+            <input type="range" id="seek-bar" value="0" max="100">
+        </div>
+
+        <div class="volume-container">
+            <label for="volume-control">Volume:</label>
+            <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1">
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('play-button');
+        const pauseButton = document.getElementById('pause-button');
+        const skipButton = document.getElementById('skip-button');
+        const repeatButton = document.getElementById('repeat-button');
+        const seekBar = document.getElementById('seek-bar');
+        const volumeControl = document.getElementById('volume-control');
+
+        let isRepeating = false;
+
+        // Play audio
+        playButton.addEventListener('click', () => {
+            audio.play();
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'inline-block';
+        });
+
+        // Pause audio
+        pauseButton.addEventListener('click', () => {
+            audio.pause();
+            pauseButton.style.display = 'none';
+            playButton.style.display = 'inline-block';
+        });
+
+        // Skip audio (restart for now, add more tracks for real skipping)
+        skipButton.addEventListener('click', () => {
+            audio.currentTime = 0;
+            audio.play();
+        });
+
+        // Repeat toggle
+        repeatButton.addEventListener('click', () => {
+            isRepeating = !isRepeating;
+            repeatButton.style.backgroundColor = isRepeating ? '#ffa726' : '#ff9800';
+        });
+
+        // Handle audio end
+        audio.addEventListener('ended', () => {
+            if (isRepeating) {
+                audio.currentTime = 0;
+                audio.play();
+            } else {
+                pauseButton.style.display = 'none';
+                playButton.style.display = 'inline-block';
+            }
+        });
+
+        // Update seek bar
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            seekBar.value = progress;
+        });
+
+        // Seek to new time
+        seekBar.addEventListener('input', () => {
+            const newTime = (seekBar.value / 100) * audio.duration;
+            audio.currentTime = newTime;
+        });
+
+        // Volume control
+        volumeControl.addEventListener('input', () => {
+            audio.volume = volumeControl.value;
+        });
+    </script>
+</body>
+</html>
