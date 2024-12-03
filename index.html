@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blankmind Radio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 10%, transparent 70%);
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .menu {
+            margin-top: 20px;
+        }
+
+        .menu a {
+            display: block;
+            font-size: 1rem;
+            margin: 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: black;
+        }
+
+        .menu a:hover {
+            color: red;
+        }
+
+        .highlight {
+            color: red;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .arrows {
+            margin-top: 30px;
+        }
+
+        .arrows span {
+            display: block;
+            font-size: 2rem;
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background-pattern"></div>
+        <h1>Blankmind<br>Radio</h1>
+        <div class="menu">
+            <a href="/shop">Shop</a>
+            <a href="/about">About</a>
+            <a href="/listen" class="highlight">Listen Now</a>
+            <a href="/suggest">Suggest</a>
+            <a href="/guestbook">Guestbook</a>
+        </div>
+        <div class="arrows">
+            <span>&darr;</span>
+            <span>&darr;</span>
+            <span>&darr;</span>
+        </div>
+    </div>
+</body>
+</html>
